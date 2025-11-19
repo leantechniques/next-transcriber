@@ -8,7 +8,9 @@
     "start": "next start",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "ci:test": "npm run type-check && npm test -- --run && npm run build"
   },
   "dependencies": {
     "next": "^15.1.3",
