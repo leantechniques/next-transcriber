@@ -6,6 +6,9 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  // Test 1: Type error - this should fail type-check
+  const x: string = 123
+
   return (
     <main>
       <h1>Welcome to Next Transcriber</h1>
