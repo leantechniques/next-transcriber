@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { NonExistent } from '@/fake-module'
 
 export const metadata: Metadata = {
   title: 'Home - Next Transcriber',
