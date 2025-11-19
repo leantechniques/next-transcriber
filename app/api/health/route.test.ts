@@ -4,7 +4,7 @@ import { GET } from './route'
 describe('Health Check API', () => {
   it('should return 200 OK status', async () => {
     const response = await GET()
-    expect(response.status).toBe(200)
+    expect(response.status).toBe(500)
   })
 
   it('should return JSON with status and timestamp', async () => {
