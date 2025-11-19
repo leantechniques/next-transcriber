@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+// Phase 4: Testing CI pipeline workflow execution
 export const metadata: Metadata = {
   title: 'Home - Next Transcriber',
   description: 'Transcribe YouTube videos locally with Next Transcriber',
