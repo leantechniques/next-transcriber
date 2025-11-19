@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import { NonExistent } from '@/fake-module'
 
-// Phase 4: Testing CI pipeline workflow execution
+// Phase 5: Test 3 - Build Failure
 export const metadata: Metadata = {
   title: 'Home - Next Transcriber',
   description: 'Transcribe YouTube videos locally with Next Transcriber',
