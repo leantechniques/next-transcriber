@@ -2,6 +2,7 @@
 
 A modern Next.js application for transcribing YouTube videos using local transcription libraries.
 
+[![PR Verification](https://github.com/leantechniques/next-transcriber/actions/workflows/pr-verify.yml/badge.svg)](https://github.com/leantechniques/next-transcriber/actions/workflows/pr-verify.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-15.x-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)](https://www.typescriptlang.org/)
 [![Vitest](https://img.shields.io/badge/Vitest-2.x-green)](https://vitest.dev/)
@@ -49,6 +50,8 @@ That's it! The app is now running locally.
 | `npm start` | Run production server |
 | `npm test` | Run all tests |
 | `npm run test:watch` | Run tests in watch mode |
+| `npm run type-check` | Check TypeScript types without emitting files |
+| `npm run ci:test` | Run complete CI pipeline (type-check, tests, build) |
 
 ## Features
 
@@ -162,6 +165,47 @@ We welcome contributions! Check the `/backlog` directory for current user storie
 
 See `/backlog` for detailed user stories.
 
+## CI/CD Pipeline
+
+This project includes automated quality checks through a GitHub Actions CI/CD pipeline.
+
+### Running Checks Locally
+
+Before pushing your code, run the complete CI pipeline locally:
+
+```bash
+npm run ci:test
+```
+
+This command runs in sequence:
+1. **Type checking** - TypeScript validation
+2. **Unit tests** - All Vitest tests
+3. **Build** - Production build verification
+
+### Individual Checks
+
+Run checks individually during development:
+
+```bash
+# Type checking only
+npm run type-check
+
+# Tests only
+npm test
+
+# Build only
+npm run build
+```
+
+### GitHub Actions Workflow
+
+The PR Verification workflow automatically runs on pull requests and ensures:
+- ✓ TypeScript compiles without errors
+- ✓ All unit tests pass
+- ✓ Production build succeeds
+
+View workflow details: `.github/workflows/pr-verify.yml`
+
 ## Troubleshooting
 
 ### Port 3000 Already in Use
@@ -170,18 +214,89 @@ Next.js will automatically suggest an alternative port.
 
 ### Node Version Issues
 
-Make sure you're running Node.js 20 or higher:
+This project requires Node.js 20 or higher. Check your current version:
 ```bash
 node --version
 ```
 
+If you're using nvm, switch to the correct version:
+```bash
+nvm use 22
+```
+
 ### TypeScript Errors
 
-Try a clean install:
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
+If you see TypeScript errors when running `npm run type-check`:
+
+1. **Verify correct Node version** (20 or higher)
+2. **Try a clean install:**
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   npm run type-check
+   ```
+
+3. **Clear TypeScript cache:**
+   ```bash
+   rm -rf .next
+   npm run type-check
+   ```
+
+### CI Pipeline Failures
+
+If `npm run ci:test` fails locally but passes in CI, try:
+
+1. **Clean install with fresh lockfile:**
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   npm run ci:test
+   ```
+
+2. **Verify Node version matches CI environment** (20 or higher)
+
+3. **Check for uncommitted changes** that might affect tests:
+   ```bash
+   git status
+   ```
+
+### Test Failures
+
+If tests fail locally:
+
+1. **Check if tests pass individually:**
+   ```bash
+   npm test
+   npm run test:watch
+   ```
+
+2. **Verify dependencies are installed:**
+   ```bash
+   npm install
+   ```
+
+3. **Clear test cache:**
+   ```bash
+   npm test -- --clearCache
+   npm test
+   ```
+
+### Build Errors
+
+If the production build fails:
+
+1. **Verify TypeScript compiles:**
+   ```bash
+   npm run type-check
+   ```
+
+2. **Try a clean build:**
+   ```bash
+   rm -rf .next
+   npm run build
+   ```
+
+3. **Check for API/runtime errors** in the build output
 
 ## Support
 
